@@ -76,3 +76,44 @@ window.prevTestimonial = () => window.showTestimonial((currentTestimonial - 1 + 
 // Auto-rotation toutes les 5 secondes
 if (slides.length) setInterval(window.nextTestimonial, 5000);
 
+// ——— Scroll to top ———
+const scrollTopBtn = document.getElementById('scroll-top');
+if (scrollTopBtn) {
+    window.addEventListener('scroll', () => {
+        const visible = window.scrollY > 400;
+        scrollTopBtn.style.opacity = visible ? '1' : '0';
+        scrollTopBtn.style.pointerEvents = visible ? 'auto' : 'none';
+    });
+    scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+}
+
+// ——— Formulaire Formspree (AJAX) ———
+const contactForm = document.getElementById('contact-form');
+if (contactForm) {
+    contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('form-btn');
+        const success = document.getElementById('form-success');
+        btn.disabled = true;
+        btn.textContent = 'Envoi en cours…';
+        try {
+            const res = await fetch(contactForm.action, {
+                method: 'POST',
+                body: new FormData(contactForm),
+                headers: { 'Accept': 'application/json' }
+            });
+            if (res.ok) {
+                contactForm.reset();
+                success.classList.remove('hidden');
+                btn.classList.add('hidden');
+            } else {
+                btn.textContent = 'Erreur — réessayez';
+                btn.disabled = false;
+            }
+        } catch {
+            btn.textContent = 'Erreur — réessayez';
+            btn.disabled = false;
+        }
+    });
+}
+
