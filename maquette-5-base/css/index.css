@@ -1,0 +1,433 @@
+/* ===== RESET & BASE ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #f5f5f5; /* Fond gris clair pour tout le body */
+  color: #333; /* Texte sombre par défaut */
+}
+
+body.dark-mode {
+  background: #2C2C2C; /* Fond sombre en mode sombre */
+  color: #f8f9fa; /* Texte clair en mode sombre */
+}
+
+/* ===== LAYOUT PRINCIPAL ===== */
+.split-screen {
+  flex: 1;
+  display: flex;
+  min-height: calc(100vh - 80px - 150px);
+}
+
+.left-panel {
+  flex: 1;
+  background: #3E3E3E; /* Fond gris foncé */
+  background-image: url("https://www.transparenttextures.com/patterns/asfalt-light.png");
+  padding: 3rem;
+  color: white; /* Texte clair pour contraster avec le fond sombre */
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.right-panel {
+  flex: 1;
+  /* background: linear-gradient(145deg, #ecc19c, #e0e0e0); /* Dégradé beige chaud à gris clair */
+ /* background: #f5e6d8 url("https://www.transparenttextures.com/patterns/paper.png"); /* Beige clair avec texture papier */
+  /*background: #f5e6d8 url("https://www.transparenttextures.com/patterns/geometry.png"); /* Beige clair avec motif géométrique */
+  /*background: linear-gradient(145deg, #ecc19c, #f5e6d8); /* Dégradé beige chaud à beige clair */
+  /*background: #f5e6d8 url("https://www.transparenttextures.com/patterns/light-wool.png"); /* Beige clair avec texture */
+  background: linear-gradient(145deg, #ecc19c, #a8c0d8); /* Dégradé beige chaud à bleu-gris */
+
+  padding: 2rem;
+}
+
+/* ===== CONTENU GAUCHE ===== */
+.content-wrapper {
+  width: 80%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.content-block {
+  background: rgba(255, 255, 255, 0.1); /* Fond semi-transparent clair */
+  backdrop-filter: blur(10px); /* Effet de flou */
+  border-radius: 15px;
+  padding: 2.5rem;
+  margin: 2rem 0;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.content-block h2 {
+  color: white;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.content-block h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: #ecc19c; /* Couleur d'accent comme le header/footer */
+}
+
+.description {
+  color: white;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-button {
+  display: inline-block;
+  background: #ecc19c; /* Couleur d'accent comme le header/footer */
+  color: #2C2C2C; /* Texte sombre pour contraster */
+  padding: 0.8rem 2.5rem;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(236, 193, 156, 0.3); /* Ombre portée */
+}
+
+.cta-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(236, 193, 156, 0.4); /* Ombre portée au survol */
+  background: #d4a87c; /* Couleur d'accent légèrement plus foncée au survol */
+}
+
+/* ===== GRILLE DE SERVICES ===== */
+.service-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.service-box {
+  position: relative;
+  height: 300px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transform: rotate(var(--rotation)) translate(var(--offsetX), var(--offsetY)); /* Rotation et décalage */
+}
+
+/* Positionnement et chevauchement */
+
+/* Cadre 1 : aligné à gauche, position normale */
+.service-grid .service-box:first-child {
+  --rotation: -2deg;
+  --offsetX: -10px;
+  --offsetY: 10px;
+
+  margin-left: 0;
+  margin-right: auto;
+}
+
+/* Cadre 2 : aligné à droite et chevauche en bas à droite du Cadre 1 */
+.service-grid .service-box:nth-child(2) {
+  --rotation: 3deg;
+  --offsetX: 15px;
+  --offsetY: -5px;
+  margin-left: auto;
+  margin-right: 0;
+  margin-top: -90px;
+  z-index: 2;
+}
+
+/* Cadre 3 : aligné à gauche et chevauche en bas à gauche du Cadre 2 */
+.service-grid .service-box:nth-child(3) {
+  --rotation: -1deg;
+  --offsetX: -5px;
+  --offsetY: 15px;
+  margin-left: 0;
+  margin-right: auto;
+  margin-top: -150px;
+}
+
+/* Cadre 4 : aligné à droite et chevauche en bas à droite du Cadre 3 */
+.service-grid .service-box:nth-child(4) {
+  --rotation: 2deg;
+  --offsetX: 10px;
+  --offsetY: -10px;
+  margin-left: auto;
+  margin-right: 0;
+  margin-top: -50px;
+  z-index: 2;
+}
+
+/* Cadre 5 : aligné à gauche et chevauche en bas à gauche du Cadre 4 */
+.service-grid .service-box:nth-child(5) {
+  margin-left: 0;
+  margin-right: auto;
+  margin-top: -130px;
+  --rotation: 3deg;
+  --offsetX: -15px;
+  --offsetY: 5px;
+}
+
+/* Survol : grossir vers le centre et afficher le texte caché */
+.service-box:hover {
+  transform: scale(1.1) !important;
+  z-index: 3;
+}
+
+/* Styles pour les icônes */
+.icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 6rem; /* Taille augmentée */
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.service-box:hover .icon-container {
+  transform: scale(1.2); /* Effet de zoom au survol */
+  opacity: 0.8; /* Légère transparence au survol */
+}
+
+/* Couleurs des icônes */
+.marketing .icon-container i { color: #A52BAC; } /* Violet */
+.communication .icon-container i { color: #FF4BB9; } /* Rose */
+.juridique .icon-container i { color: #F1CF53; } /* Jaune */
+.sociale .icon-container i { color: #8ABC43; } /* Vert */
+.compta .icon-container i { color: #C1E8F3; } /* Bleu clair */
+
+/* Fond des cadres */
+.marketing { background: #D8A4D8; } /* Violet clair */
+.communication { background: #FFB6D9; } /* Rose clair */
+.juridique { background: #F8E8A8; } /* Jaune clair */
+.sociale { background: #C8E6A8; } /* Vert clair */
+.compta { background: #E0F7FA; } /* Bleu très clair */
+
+/* Titres des catégories avec fond de la couleur de la catégorie */
+.service-box h3 {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  color: white;
+  font-size: 1.5rem; /* Taille de police rétablie */
+  padding: 10px 20px;
+  border-radius: 10px;
+  z-index: 2;
+  margin: 0;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.marketing h3 {
+  background: #A52BAC; /* Violet */
+}
+
+.communication h3 {
+  background: #FF4BB9; /* Rose */
+}
+
+.juridique h3 {
+  background: #F1CF53; /* Jaune */
+}
+
+.sociale h3 {
+  background: #8ABC43; /* Vert */
+}
+
+.compta h3 {
+  background: #C1E8F3; /* Bleu clair */
+}
+
+/* Effet de survol avec la couleur de la catégorie */
+.marketing:hover {
+  box-shadow: 0 8px 25px rgba(165, 43, 172, 0.5); /* Violet */
+}
+
+.communication:hover {
+  box-shadow: 0 8px 25px rgba(255, 75, 185, 0.5); /* Rose */
+}
+
+.juridique:hover {
+  box-shadow: 0 8px 25px rgba(241, 207, 83, 0.5); /* Jaune */
+}
+
+.sociale:hover {
+  box-shadow: 0 8px 25px rgba(138, 188, 67, 0.5); /* Vert */
+}
+
+.compta:hover {
+  box-shadow: 0 8px 25px rgba(193, 232, 243, 0.5); /* Bleu clair */
+}
+
+/* Ajustement des détails au survol */
+.details-overlay {
+  position: absolute;
+  bottom: -100%;
+  left: 0;
+  right: 0;
+  padding: 1.5rem;
+  transition: all 0.5s ease-in-out;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.9); /* Fond blanc semi-transparent */
+  color: #333; /* Texte sombre pour contraster */
+  border-radius: 15px;
+}
+
+.service-box:hover .details-overlay {
+  bottom: 0;
+}
+
+.details-overlay li {
+  transform: translateY(10px);
+  opacity: 0;
+  transition: all 0.3s;
+}
+
+.service-box:hover .details-overlay li {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .split-screen {
+    flex-direction: column;
+  }
+
+  .service-grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .content-wrapper {
+    width: 90%;
+  }
+
+  .content-block {
+    padding: 2rem;
+  }
+
+  .content-block h2 {
+    font-size: 1.8rem;
+  }
+
+  .cta-button {
+    width: 100%;
+    padding: 1rem;
+  }
+}
+
+/* Nouveau style pour le logo dans le panneau gauche */
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem; /* espace entre le logo et les content-blocks */
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.left-logo {
+  max-width: 500px; /* ajuste la taille selon tes besoins */
+  width: 100%;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3)); /* Ombre portée */
+}
+
+/* ===== LOGO DYNAMIQUE ===== */
+.logo-container {
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.left-logo {
+  max-width: 500px;
+  width: 100%;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform-origin: center;
+}
+
+/* Option 1 : Effet de profondeur au survol */
+.logo-container:hover .left-logo {
+  transform: 
+    scale(1.05) 
+    rotate(-1deg);
+  filter: 
+    drop-shadow(0 0 15px rgba(236, 193, 156, 0.3)) 
+    brightness(1.1);
+}
+
+/* Option 2 : Animation "flottante" */
+@keyframes logo-float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-10px) scale(1.02); }
+}
+
+.logo-container:hover .left-logo {
+  animation: logo-float 2.5s ease-in-out infinite;
+}
+
+/* Option 3 : Effet de lumière pulsée */
+.logo-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(236, 193, 156, 0.2) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.logo-container:hover::after {
+  opacity: 1;
+}
+.logo-container {
+  perspective: 1000px; /* Pour un effet 3D subtil */
+}
+
+.left-logo {
+  transform-style: preserve-3d;
+}
+
+.logo-container:hover .left-logo {
+  transform: 
+    scale(1.05) 
+    rotateX(-3deg) 
+    rotateY(2deg) 
+    translateZ(20px);
+  filter: 
+    drop-shadow(0 15px 20px rgba(0, 0, 0, 0.2)) 
+    contrast(1.1);
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}

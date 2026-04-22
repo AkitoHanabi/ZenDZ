@@ -1,0 +1,309 @@
+/* ========== 🏗️ RESET & BASE ========== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #f8f9fa;
+}
+
+/* ========== 🔝 HEADER ========== */
+.main-header {
+  background: linear-gradient(145deg, #3E3E3E, #2C2C2C); /* Dégradé moderne comme le footer */
+  backdrop-filter: blur(10px); /* Effet de flou */
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Ombre portée comme le footer */
+  transition: background 0.3s ease, transform 0.3s ease-in-out;
+}
+
+/* 🔵 Effet de barre animée sous le header */
+.main-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: #ecc19c; /* Couleur d'accent comme le footer */
+  transform: scaleX(0); /* Initialement invisible */
+  transform-origin: center;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Barre animée visible au survol ou après scroll */
+.main-header.scrolled::after,
+.main-header:hover::after {
+  transform: scaleX(1); /* Barre visible */
+}
+
+/* Effet de disparition du header en scrollant */
+.main-header.hide {
+  transform: translateY(-100%);
+}
+
+/* ========== 📱 MENU BURGER (Responsive) ========== */
+.menu-button {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.8rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.menu-button:hover {
+  color: #ecc19c; /* Couleur d'accent au survol */
+}
+
+/* Affichage sur mobile */
+@media (max-width: 768px) {
+  .menu-button {
+    display: block;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+  }
+
+  .main-nav {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background: rgba(62, 62, 62, 0.95);
+    width: 100%;
+    text-align: center;
+    padding: 1rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Ombre portée comme le footer */
+  }
+
+  .main-nav.show {
+    display: flex;
+  }
+}
+
+/* ========== 🧭 NAVIGATION PRINCIPALE ========== */
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.header-logo {
+  height: 50px;
+  transition: transform 0.3s ease;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3)); /* Ombre portée comme le footer */
+}
+
+.header-logo:hover {
+  transform: scale(1.05); /* Effet de zoom au survol */
+}
+
+.main-nav {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.main-nav ul {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+/* 🔹 Liens de navigation avec effet de survol */
+.nav-link {
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+  color: white;
+  padding: 0.5rem 1rem;
+  transition: color 0.3s ease-in-out;
+}
+
+/* Barre animée sous les liens */
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 80%; /* Ajustement pour éviter le débordement */
+  height: 2px;
+  bottom: 0;
+  left: 50%;
+  background: #ecc19c; /* Couleur d'accent comme le footer */
+  transform: translateX(-50%) scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s ease-in-out;
+}
+
+.nav-link:hover::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+.nav-link:hover {
+  color: #ecc19c; /* Changement de couleur au survol */
+}
+
+/* ========== 📲 RESPONSIVE NAVIGATION ========== */
+@media (max-width: 768px) {
+  .main-nav {
+    margin-left: 0;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .main-nav ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+}
+
+/* ========== 🔻 FOOTER ========== */
+.main-footer {
+  margin-top: auto;
+  background: linear-gradient(145deg, #3E3E3E, #2C2C2C); /* Dégradé moderne */
+  color: white;
+  border-top: 3px solid #ecc19c;
+  padding: 4rem 0;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.2); /* Ombre portée */
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+/* 📌 Logo dans le footer */
+.footer-logo {
+  width: 150px;
+  margin-bottom: 1.5rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3)); /* Ombre portée */
+}
+
+/* 🛜 Liens vers les réseaux sociaux */
+.social-links {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.social-links a {
+  color: white;
+  font-size: 1.8rem;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-links a:hover {
+  transform: translateY(-5px); /* Effet de levée au survol */
+  color: #ecc19c; /* Changement de couleur au survol */
+}
+
+/* Sections du footer */
+.footer-section {
+  margin-bottom: 2rem;
+}
+
+.footer-section h4 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #ecc19c; /* Couleur d'accent */
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+}
+
+.footer-section h4::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background: #ecc19c; /* Barre de séparation */
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 1rem;
+}
+
+.footer-section ul li a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+  color: #ecc19c; /* Changement de couleur au survol */
+}
+
+/* Informations de contact */
+.contact-info {
+  list-style: none;
+  padding: 0;
+}
+
+.contact-info li {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.contact-info li i {
+  font-size: 1.2rem;
+  color: #ecc19c; /* Couleur d'accent */
+}
+
+/* Texte en bas du footer */
+.footer-bottom {
+  text-align: center;
+  padding: 1.5rem;
+  background: rgba(0, 0, 0, 0.1); /* Fond légèrement plus sombre */
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* 📲 Footer Responsive */
+@media (max-width: 768px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .footer-section h4::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .social-links {
+    justify-content: center;
+  }
+
+  .contact-info li {
+    justify-content: center;
+  }
+}
