@@ -8,7 +8,7 @@
     <meta name="robots" content="index, follow">
     <meta property="og:title" content="Zen Dz Solutions | Conseil & Gestion des Entreprises">
     <meta property="og:description" content="Accompagnement comptable, fiscal, juridique et marketing pour entrepreneurs. Cabinet basé à Montreuil. Consultation gratuite.">
-    <meta property="og:image" content="images/logo.png">
+    <meta property="og:image" content="https://akitohanabi.github.io/ZenDZ/images/logo.png">
     <meta property="og:url" content="https://akitohanabi.github.io/ZenDZ/">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="fr_FR">
@@ -72,7 +72,7 @@
                 <div class="flex items-center space-x-3">
                     <img src="images/logo.png" alt="Zen Dz Solutions" class="w-12 h-12 rounded-xl object-cover shadow-lg">
                     <div>
-                        <h1 class="font-hand text-2xl font-bold text-zen-dark">Zen Dz Solutions</h1>
+                        <span class="font-hand text-2xl font-bold text-zen-dark">Zen Dz Solutions</span>
                         <p class="text-xs text-zen-gold tracking-widest uppercase">Conseil & Gestion</p>
                     </div>
                 </div>
@@ -106,8 +106,8 @@
     <!-- Hero Section -->
     <section class="relative min-h-screen flex flex-col items-center justify-start overflow-hidden bg-gradient-to-br from-gray-50 via-white to-purple-50">
         <!-- Hero background images -->
-        <img src="images/Hero.jpg" alt="Hero image" class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-10 h-[60%] w-auto object-contain z-0 pointer-events-none">
-        <img src="images/Hero2.jpg" alt="Hero image right" class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-16 h-[60%] w-auto object-contain z-0 pointer-events-none">
+        <img src="images/Hero.jpg" alt="Entrepreneur accompagné par Zen Dz Solutions" class="hidden md:block absolute left-0 top-1/2 -translate-y-1/2 -translate-x-10 h-[60%] w-auto object-contain z-0 pointer-events-none">
+        <img src="images/Hero2.jpg" alt="Consultant en gestion d'entreprise" class="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 translate-x-16 h-[60%] w-auto object-contain z-0 pointer-events-none">
         <!-- Animated Blobs -->
         <div class="blob w-96 h-96 bg-zen-lime rounded-full top-0 left-0 -translate-x-1/2 -translate-y-1/2"></div>
         <div class="blob w-80 h-80 bg-zen-purple rounded-full bottom-0 right-0 translate-x-1/3 translate-y-1/3 animation-delay-2000"></div>
@@ -501,7 +501,7 @@
                 </div>
 
                 <div class="bg-white rounded-2xl shadow-xl p-8">
-                    <form id="contact-form" action="https://formspree.io/f/contact@zendzsolutions.fr" method="POST" class="space-y-6">
+                    <form id="contact-form" action="https://formspree.io/contact@zendzsolutions.fr" method="POST" class="space-y-6">
                         <div class="grid md:grid-cols-2 gap-6">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Nom <span class="text-zen-pink">*</span></label>
@@ -544,8 +544,8 @@
     <!-- Footer -->
     <footer class="bg-zen-dark text-white py-12 border-t border-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-4 gap-8 mb-8">
-                <div class="col-span-2">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="md:col-span-2">
                     <div class="flex items-center gap-3 mb-4">
                         <div class="w-10 h-10 rounded-lg gradient-bg flex items-center justify-center text-white font-bold">ZDZ</div>
                         <div>
@@ -564,7 +564,6 @@
                         <li><a href="#services" class="hover:text-white transition-colors">Nos services</a></li>
                         <li><a href="#expertise" class="hover:text-white transition-colors">Notre expertise</a></li>
                         <li><a href="#contact" class="hover:text-white transition-colors">Contact</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Espace client</a></li>
                     </ul>
                 </div>
                 
