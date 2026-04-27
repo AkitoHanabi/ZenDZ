@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Zen DZ Solutions — Maquette 6A · Parallax Classique</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&family=Mulish:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+/* =====================================================
+   M6-A — PARALLAX CLASSIQUE
+   Fonds à vitesses différentes, profondeur douce
+   ===================================================== */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --beige:   #faf5ec;
+  --beige-2: #f2e9d8;
+  --ink:     #2c2420;
+  --green:   #4d7d26;
+  --lime:    #8abc43;
+  --taupe:   #7a6a5f;
+  --orange:  #e07520;
+  --orange-s:#fdf0e6;
+  --footer:  #1e1a17;
+  --white:   #fffdf8;
+  --gutter:  max(48px, calc((100vw - 1180px) / 2));
+  --r:       16px;
+}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:'Mulish',sans-serif;background:var(--beige);color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+
+/* ——— NAV ——— */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 var(--gutter);height:64px;display:flex;align-items:center;justify-content:space-between;transition:background .4s,box-shadow .4s}
+nav.scrolled{background:rgba(250,245,236,.97);backdrop-filter:blur(12px);box-shadow:0 2px 20px rgba(44,36,32,.08)}
+.nav-logo{display:flex;align-items:center;gap:12px}
+.nav-logo img{height:36px}
+.nav-logo-text{font-family:'Josefin Sans',sans-serif;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+.nav-links{display:flex;align-items:center;gap:6px}
+.nav-links a{font-size:12.5px;font-weight:600;letter-spacing:.04em;padding:8px 16px;color:var(--ink);opacity:.6;transition:opacity .2s}
+.nav-links a:hover{opacity:1}
+.nav-cta{background:var(--orange)!important;color:var(--white)!important;opacity:1!important;border-radius:50px;font-weight:700!important;transition:transform .2s,box-shadow .2s!important}
+.nav-cta:hover{transform:translateY(-2px)!important;box-shadow:0 8px 20px rgba(224,117,32,.35)!important}
+
+/* ——— HERO ——— */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden;padding-top:64px}
+
+/* Fond parallax gauche */
+.hero-left{
+  background:var(--beige);
+  display:flex;flex-direction:column;justify-content:center;
+  padding:80px var(--gutter) 80px calc(var(--gutter));
+  position:relative;overflow:hidden;
+}
+.parallax-circle{position:absolute;border-radius:50%;pointer-events:none}
+.pc-1{width:400px;height:400px;background:var(--lime);opacity:.07;top:-80px;left:-80px}
+.pc-2{width:200px;height:200px;background:var(--orange);opacity:.06;bottom:60px;left:40px}
+
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--orange-s);border:1.5px solid rgba(224,117,32,.2);border-radius:50px;padding:6px 16px;font-size:11.5px;font-weight:700;color:var(--orange);margin-bottom:28px;letter-spacing:.04em;text-transform:uppercase}
+.hero-badge span{width:6px;height:6px;border-radius:50%;background:var(--orange);display:inline-block}
+
+.hero h1{font-family:'Josefin Sans',sans-serif;font-size:clamp(38px,4.5vw,62px);font-weight:700;line-height:1.1;color:var(--ink);letter-spacing:-.01em}
+.hero h1 .green{color:var(--green)}
+.hero-sub{font-size:15px;line-height:1.85;color:var(--taupe);max-width:400px;margin-top:20px}
+.hero-actions{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap}
+.btn-orange{display:inline-flex;align-items:center;gap:10px;background:var(--orange);color:var(--white);border-radius:50px;padding:14px 30px;font-family:'Josefin Sans',sans-serif;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;box-shadow:0 6px 20px rgba(224,117,32,.3);transition:transform .2s,box-shadow .2s}
+.btn-orange:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(224,117,32,.35)}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;border:2px solid rgba(44,36,32,.15);border-radius:50px;padding:14px 26px;font-size:13px;font-weight:600;color:var(--taupe);transition:border-color .2s,color .2s}
+.btn-outline:hover{border-color:var(--orange);color:var(--orange)}
+
+/* VMV - côté droit */
+.hero-right{
+  background:var(--beige-2);
+  display:flex;flex-direction:column;justify-content:center;align-items:stretch;
+  padding:80px 64px 80px 48px;
+  gap:16px;
+  position:relative;
+}
+.hero-right-label{font-family:'Josefin Sans',sans-serif;font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--orange);margin-bottom:8px}
+.vmv-card{
+  background:var(--white);
+  border:1.5px solid rgba(44,36,32,.06);
+  border-radius:var(--r);padding:28px 28px 24px;
+  cursor:pointer;
+  transition:background .3s,transform .3s,box-shadow .3s;
+  flex:1;
+}
+.vmv-card:hover{background:var(--orange);transform:translateX(6px);box-shadow:0 12px 32px rgba(224,117,32,.25)}
+.vmv-card:hover .vmv-title,.vmv-card:hover .vmv-text{color:var(--white)}
+.vmv-card:hover .vmv-num{color:rgba(255,255,255,.3)}
+.vmv-num{font-family:'Josefin Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--orange);margin-bottom:10px;transition:color .3s}
+.vmv-title{font-family:'Josefin Sans',sans-serif;font-size:22px;font-weight:700;color:var(--green);letter-spacing:-.01em;margin-bottom:8px;transition:color .3s}
+.vmv-text{font-size:13.5px;line-height:1.75;color:var(--taupe);transition:color .3s}
+
+/* ——— HISTOIRE — fond avec parallax background ——— */
+.histoire{
+  padding:100px var(--gutter);
+  background-color:var(--ink);
+  background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='30' r='1.5' fill='rgba(255,255,255,.04)'/%3E%3C/svg%3E");
+  background-attachment:fixed;
+  position:relative;overflow:hidden;
+}
+.histoire-inner{max-width:760px;margin:0 auto;text-align:center;position:relative;z-index:2}
+.histoire-eyebrow{font-family:'Josefin Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--orange);margin-bottom:20px;display:flex;align-items:center;justify-content:center;gap:16px}
+.histoire-eyebrow::before,.histoire-eyebrow::after{content:'';width:40px;height:1px;background:var(--orange);opacity:.5}
+.histoire h2{font-family:'Josefin Sans',sans-serif;font-size:clamp(28px,4vw,46px);font-weight:700;color:var(--white);letter-spacing:-.02em;line-height:1.15;margin-bottom:28px}
+.histoire h2 em{font-style:italic;color:var(--lime);font-weight:300}
+.histoire-text{font-size:16px;line-height:2;color:rgba(255,255,255,.6);max-width:620px;margin:0 auto 40px}
+.histoire-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.08);border-radius:12px;overflow:hidden;margin-top:48px}
+.h-stat{background:rgba(255,255,255,.04);padding:28px 20px;text-align:center}
+.h-stat-num{font-family:'Josefin Sans',sans-serif;font-size:40px;font-weight:700;color:var(--lime);line-height:1;white-space:nowrap}
+.h-stat-label{font-size:12px;color:rgba(255,255,255,.4);margin-top:8px;letter-spacing:.03em}
+/* Parallax blob dans histoire */
+.histoire-blob{position:absolute;border-radius:50%;pointer-events:none;will-change:transform}
+.hb-1{width:500px;height:500px;background:var(--orange);opacity:.04;top:-100px;right:-150px}
+.hb-2{width:300px;height:300px;background:var(--lime);opacity:.05;bottom:-80px;left:-60px}
+
+/* ——— SERVICES — cartes en éventail ——— */
+.services{padding:100px var(--gutter);background:var(--beige);overflow:hidden}
+.services-header{text-align:center;margin-bottom:60px}
+.section-eyebrow{font-family:'Josefin Sans',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:3.5px;text-transform:uppercase;color:var(--orange);display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:14px}
+.section-eyebrow::before,.section-eyebrow::after{content:'';width:30px;height:1px;background:var(--orange);opacity:.4}
+.section-title{font-family:'Josefin Sans',sans-serif;font-size:clamp(26px,3.5vw,42px);font-weight:700;color:var(--ink);letter-spacing:-.02em;line-height:1.2}
+.section-title em{color:var(--green);font-style:italic;font-weight:300}
+
+/* Fan de cartes */
+.services-fan{display:flex;justify-content:center;align-items:flex-end;padding:40px 0 80px;position:relative;min-height:420px}
+.svc-card{
+  width:200px;min-height:300px;border-radius:20px;padding:28px 20px 24px;
+  display:flex;flex-direction:column;
+  position:absolute;cursor:pointer;
+  box-shadow:0 8px 24px rgba(44,36,32,.12);
+  transition:transform .45s cubic-bezier(.22,1,.36,1),box-shadow .45s,z-index .1s;
+  transform-origin:bottom center;
+}
+.svc-card:nth-child(1){transform:rotate(-15deg) translate(-340px,20px);z-index:1;background:#edf6da}
+.svc-card:nth-child(2){transform:rotate(-9deg) translate(-200px,8px);z-index:2;background:#f3e0f5}
+.svc-card:nth-child(3){transform:rotate(-3deg) translate(-65px,2px);z-index:3;background:#fef8dc}
+.svc-card:nth-child(4){transform:rotate(3deg) translate(65px,2px);z-index:4;background:#ffe0f4}
+.svc-card:nth-child(5){transform:rotate(9deg) translate(200px,8px);z-index:5;background:#e8f7fd}
+.svc-card:nth-child(6){transform:rotate(15deg) translate(340px,20px);z-index:6;background:#fdf0e6}
+.svc-card:hover{transform:rotate(0) translate(0,-30px) scale(1.04)!important;z-index:20!important;box-shadow:0 28px 56px rgba(44,36,32,.18)!important}
+.svc-num{font-family:'Josefin Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--orange);margin-bottom:12px;opacity:.6}
+.svc-icon{font-size:28px;margin-bottom:14px}
+.svc-name{font-family:'Josefin Sans',sans-serif;font-size:16px;font-weight:700;color:var(--ink);line-height:1.3;margin-bottom:8px}
+.svc-desc{font-size:12px;line-height:1.7;color:var(--taupe);flex:1}
+.svc-arrow{margin-top:16px;font-size:18px;color:var(--orange);font-weight:700}
+
+/* ——— CONTACT ——— */
+.contact{padding:100px var(--gutter);background:var(--beige-2);display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start}
+.contact-intro{font-size:15px;line-height:1.9;color:var(--taupe);margin-top:18px;margin-bottom:36px;max-width:380px}
+.contact-item{padding:18px 0;border-bottom:1px solid rgba(44,36,32,.08);display:flex;gap:16px;align-items:start}
+.contact-item:first-of-type{border-top:1px solid rgba(44,36,32,.08)}
+.ci-label{font-family:'Josefin Sans',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--orange);min-width:80px;padding-top:2px}
+.ci-val{font-size:14.5px;font-weight:600;color:var(--ink)}
+.ci-val a{color:inherit}
+.form-wrap{background:var(--white);border-radius:20px;padding:40px;box-shadow:0 8px 32px rgba(44,36,32,.07)}
+.form-title{font-family:'Josefin Sans',sans-serif;font-size:22px;font-weight:700;color:var(--ink);letter-spacing:-.01em;margin-bottom:6px}
+.form-sub{font-size:13px;color:var(--taupe);margin-bottom:28px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fg{margin-bottom:16px}
+.fg label{display:block;font-family:'Josefin Sans',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--taupe);margin-bottom:7px}
+.fg input,.fg select,.fg textarea{width:100%;background:var(--beige);border:1.5px solid rgba(44,36,32,.08);border-radius:10px;padding:12px 15px;font-family:'Mulish',sans-serif;font-size:13.5px;color:var(--ink);outline:none;transition:border-color .2s,box-shadow .2s}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--orange);box-shadow:0 0 0 3px rgba(224,117,32,.1)}
+.fg textarea{resize:none;height:100px}
+.btn-submit{width:100%;background:var(--orange);color:var(--white);border:none;border-radius:10px;padding:15px;font-family:'Josefin Sans',sans-serif;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:transform .2s,box-shadow .2s;margin-top:4px}
+.btn-submit:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(224,117,32,.3)}
+#form-success{display:none;margin-top:12px;font-size:13px;font-weight:600;color:var(--green)}
+
+/* ——— FOOTER ——— */
+footer{background:var(--footer);padding:36px var(--gutter);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.foot-brand{display:flex;align-items:center;gap:12px}
+.foot-brand img{height:28px;opacity:.4}
+.foot-brand-name{font-family:'Josefin Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.25)}
+footer p{font-size:11.5px;color:rgba(255,255,255,.2)}
+.foot-links{display:flex;gap:24px}
+.foot-links a{font-size:11.5px;color:rgba(255,255,255,.25);text-decoration:none;transition:color .2s}
+.foot-links a:hover{color:var(--orange)}
+
+/* ——— WHATSAPP ——— */
+.wa{position:fixed;bottom:24px;right:24px;z-index:90;width:50px;height:50px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 16px rgba(37,211,102,.4);transition:transform .2s}
+.wa:hover{transform:scale(1.1)}
+.wa svg{width:26px;height:26px;fill:#fff}
+#scroll-top{position:fixed;bottom:84px;right:24px;z-index:90;width:42px;height:42px;border-radius:50%;background:var(--orange);color:var(--white);border:none;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(224,117,32,.35);opacity:0;pointer-events:none;transition:opacity .3s,transform .3s}
+#scroll-top.visible{opacity:1;pointer-events:auto}
+#scroll-top:hover{transform:translateY(-3px)}
+
+/* ——— REVEAL ——— */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
+.reveal.visible{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}.d5{transition-delay:.5s}
+
+/* ——— RESPONSIVE ——— */
+@media(max-width:1024px){
+  :root{--gutter:32px}
+  .hero{grid-template-columns:1fr}
+  .hero-right{padding:48px 32px}
+  .contact{grid-template-columns:1fr;gap:40px}
+}
+@media(max-width:640px){
+  :root{--gutter:20px}
+  .nav-links a:not(.nav-cta){display:none}
+  .services-fan{transform:scale(.8);min-height:340px}
+  .form-row{grid-template-columns:1fr}
+  footer{flex-direction:column;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <div class="nav-logo">
+    <img src="../maquette-3-chaleur/images/logo.png" alt="Zen DZ Solutions"/>
+    <span class="nav-logo-text">Zen DZ Solutions</span>
+  </div>
+  <div class="nav-links">
+    <a href="#histoire">Notre histoire</a>
+    <a href="#services">Services</a>
+    <a href="#contact">Contact</a>
+    <a href="#contact" class="nav-cta">Prendre RDV</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="parallax-circle pc-1" data-parallax="0.3"></div>
+    <div class="parallax-circle pc-2" data-parallax="0.5"></div>
+
+    <div class="hero-badge reveal"><span></span>Cabinet comptable & conseil · Montreuil 93</div>
+    <h1 class="reveal d1">
+      Ton entreprise mérite<br>
+      une compta <span class="green">sans stress.</span>
+    </h1>
+    <p class="hero-sub reveal d2">
+      Artisans, auto-entrepreneurs, gérants de TPE — on simplifie
+      tout ce qui est complexe pour que tu te concentres sur ce qui compte vraiment.
+    </p>
+    <div class="hero-actions reveal d2">
+      <a href="#contact" class="btn-orange">Parlons de ton projet →</a>
+      <a href="tel:0980751599" class="btn-outline">📞 09 80 75 15 99</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-right-label reveal">Notre identité</div>
+
+    <div class="vmv-card reveal d1">
+      <div class="vmv-num">01 · Vision</div>
+      <div class="vmv-title">Simplifier pour libérer</div>
+      <p class="vmv-text">Que chaque entrepreneur puisse se concentrer sur son métier, sans que la comptabilité soit un obstacle.</p>
+    </div>
+
+    <div class="vmv-card reveal d2">
+      <div class="vmv-num">02 · Mission</div>
+      <div class="vmv-title">Un partenaire, pas un prestataire</div>
+      <p class="vmv-text">Offrir un service humain, réactif et transparent — disponible quand tu en as besoin, pas seulement en période fiscale.</p>
+    </div>
+
+    <div class="vmv-card reveal d3">
+      <div class="vmv-num">03 · Valeurs</div>
+      <div class="vmv-title">Proximité · Honnêteté · Expertise</div>
+      <p class="vmv-text">Fondées sur 7 ans d'exercice au cœur du 93, aux côtés de ceux qui construisent leur avenir.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HISTOIRE -->
+<section class="histoire" id="histoire">
+  <div class="histoire-blob hb-1" data-parallax="0.2"></div>
+  <div class="histoire-blob hb-2" data-parallax="0.35"></div>
+
+  <div class="histoire-inner">
+    <div class="histoire-eyebrow reveal">Il était une fois…</div>
+    <h2 class="reveal d1">
+      Zen DZ Solutions,<br>
+      <em>née du terrain.</em>
+    </h2>
+    <p class="histoire-text reveal d2">
+      Tout a commencé par un constat simple : trop d'entrepreneurs du 93 se retrouvaient seuls face à leur compta, sans accompagnement adapté à leur réalité. Zen DZ Solutions est née de cette conviction — que la comptabilité doit être un levier, pas un fardeau. Depuis 7 ans, nous sommes aux côtés de plus de 200 clients avec une promesse simple : être là, vraiment là.
+    </p>
+
+    <div class="histoire-stats reveal d3">
+      <div class="h-stat">
+        <div class="h-stat-num" data-counter data-target="200" data-suffix="+">200+</div>
+        <div class="h-stat-label">Clients accompagnés</div>
+      </div>
+      <div class="h-stat">
+        <div class="h-stat-num" data-counter data-target="7" data-suffix=" ans" style="white-space:nowrap">7 ans</div>
+        <div class="h-stat-label">D'expérience</div>
+      </div>
+      <div class="h-stat">
+        <div class="h-stat-num" data-counter data-target="98" data-suffix="%">98%</div>
+        <div class="h-stat-label">Satisfaction clients</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-header">
+    <div class="section-eyebrow reveal">Ce qu'on fait pour toi</div>
+    <h2 class="section-title reveal d1">Tous tes besoins,<br><em>une seule adresse.</em></h2>
+  </div>
+
+  <div class="services-fan">
+    <div class="svc-card reveal">
+      <div class="svc-num">01</div>
+      <div class="svc-icon">📊</div>
+      <div class="svc-name">Comptabilité & Bilan</div>
+      <p class="svc-desc">Tenue complète, bilan annuel, comptes de résultat. Tout est clair, sans surprise.</p>
+      <div class="svc-arrow">→</div>
+    </div>
+    <div class="svc-card reveal d1">
+      <div class="svc-num">02</div>
+      <div class="svc-icon">🚀</div>
+      <div class="svc-name">Création d'entreprise</div>
+      <p class="svc-desc">SARL, SAS, auto-entreprise — on choisit ensemble et on gère toutes les formalités.</p>
+      <div class="svc-arrow">→</div>
+    </div>
+    <div class="svc-card reveal d2">
+      <div class="svc-num">03</div>
+      <div class="svc-icon">📝</div>
+      <div class="svc-name">Déclarations Fiscales</div>
+      <p class="svc-desc">TVA, IS, IR, liasse fiscale — zéro pénalité, zéro retard.</p>
+      <div class="svc-arrow">→</div>
+    </div>
+    <div class="svc-card reveal d3">
+      <div class="svc-num">04</div>
+      <div class="svc-icon">👥</div>
+      <div class="svc-name">Paie & RH</div>
+      <p class="svc-desc">Bulletins de salaire, DSN, gestion des entrées et sorties.</p>
+      <div class="svc-arrow">→</div>
+    </div>
+    <div class="svc-card reveal d4">
+      <div class="svc-num">05</div>
+      <div class="svc-icon">💡</div>
+      <div class="svc-name">Conseil & Stratégie</div>
+      <p class="svc-desc">Tableaux de bord, prévisionnel, aide à la décision.</p>
+      <div class="svc-arrow">→</div>
+    </div>
+    <div class="svc-card reveal d5">
+      <div class="svc-num">06</div>
+      <div class="svc-icon">⚖️</div>
+      <div class="svc-name">Accompagnement Juridique</div>
+      <p class="svc-desc">Contrats, statuts, cession, modifications — on sécurise.</p>
+      <div class="svc-arrow">→</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div>
+    <div class="section-eyebrow reveal" style="justify-content:flex-start">
+      <span style="width:0;display:none"></span>On t'attend
+    </div>
+    <h2 class="section-title reveal d1">Prenons<br><em>rendez-vous.</em></h2>
+    <p class="contact-intro reveal d2">Premier RDV gratuit, sans engagement. On te répond sous 24h.</p>
+
+    <div class="contact-item reveal d2">
+      <span class="ci-label">Adresse</span>
+      <span class="ci-val">35 rue de la Solidarité<br>93100 Montreuil</span>
+    </div>
+    <div class="contact-item reveal d2">
+      <span class="ci-label">Téléphone</span>
+      <span class="ci-val"><a href="tel:0980751599">09 80 75 15 99</a></span>
+    </div>
+    <div class="contact-item reveal d2">
+      <span class="ci-label">Email</span>
+      <span class="ci-val"><a href="mailto:contact@zendzsolutions.fr">contact@zendzsolutions.fr</a></span>
+    </div>
+    <div class="contact-item reveal d2">
+      <span class="ci-label">Horaires</span>
+      <span class="ci-val">Lun–Ven · 9h–18h</span>
+    </div>
+  </div>
+
+  <div class="form-wrap reveal d1">
+    <div class="form-title">Dis-nous tout 👋</div>
+    <p class="form-sub">On te répond dans la journée.</p>
+    <form id="contact-form" action="https://formspree.io/contact@zendzsolutions.fr" method="POST">
+      <div class="form-row">
+        <div class="fg"><label>Prénom</label><input type="text" name="prenom" placeholder="Prénom" required/></div>
+        <div class="fg"><label>Nom</label><input type="text" name="nom" placeholder="Nom" required/></div>
+      </div>
+      <div class="fg"><label>Email</label><input type="email" name="email" placeholder="ton@email.fr" required/></div>
+      <div class="fg"><label>Téléphone</label><input type="tel" name="telephone" placeholder="06 00 00 00 00"/></div>
+      <div class="fg"><label>Service</label>
+        <select name="service">
+          <option value="">Choisis un service…</option>
+          <option>Comptabilité & bilan</option>
+          <option>Création d'entreprise</option>
+          <option>Déclarations fiscales</option>
+          <option>Paie & RH</option>
+          <option>Conseil & stratégie</option>
+          <option>Juridique</option>
+        </select>
+      </div>
+      <div class="fg"><label>Message</label><textarea name="message" placeholder="Explique-nous ta situation…"></textarea></div>
+      <button type="submit" class="btn-submit" id="form-btn">Envoyer →</button>
+      <p id="form-success">✅ Message envoyé ! On revient vers toi très vite.</p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-brand">
+    <img src="../maquette-3-chaleur/images/logo.png" alt="Zen DZ"/>
+    <span class="foot-brand-name">Zen DZ Solutions</span>
+  </div>
+  <p>© 2025 Zen DZ Solutions — Montreuil (93)</p>
+  <div class="foot-links">
+    <a href="../maquette-3-chaleur/mentions-legales.html">Mentions légales</a>
+    <a href="../maquette-3-chaleur/politique-confidentialite.html">Confidentialité</a>
+  </div>
+</footer>
+
+<a href="https://wa.me/33980751599" class="wa" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+<button id="scroll-top" aria-label="Haut de page">↑</button>
+
+<script>
+// NAV scroll
+const nav = document.getElementById('navbar');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+
+// PARALLAX
+const parallaxEls = document.querySelectorAll('[data-parallax]');
+window.addEventListener('scroll', () => {
+  const sy = window.scrollY;
+  parallaxEls.forEach(el => {
+    const speed = parseFloat(el.dataset.parallax);
+    el.style.transform = `translateY(${sy * speed}px)`;
+  });
+}, {passive: true});
+
+// REVEAL
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, {threshold:.12, rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+// COUNTERS
+function animateCounter(el) {
+  const target = parseFloat(el.dataset.target);
+  const suffix = el.dataset.suffix || '';
+  const start = performance.now();
+  const dur = 1800;
+  function update(now) {
+    const p = Math.min((now - start) / dur, 1);
+    const ease = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.round(ease * target) + suffix;
+    if(p < 1) requestAnimationFrame(update);
+  }
+  requestAnimationFrame(update);
+}
+const co = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting && !e.target.dataset.animated) {
+      e.target.dataset.animated = 'true';
+      animateCounter(e.target);
+    }
+  });
+}, {threshold:.5});
+document.querySelectorAll('[data-counter]').forEach(el => co.observe(el));
+
+// SCROLL TOP
+const st = document.getElementById('scroll-top');
+window.addEventListener('scroll', () => st.classList.toggle('visible', window.scrollY > 400));
+st.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
+
+// FORM
+const form = document.getElementById('contact-form');
+if(form) form.addEventListener('submit', async e => {
+  e.preventDefault();
+  const btn = document.getElementById('form-btn');
+  btn.disabled = true; btn.textContent = 'Envoi…';
+  try {
+    const r = await fetch(form.action, {method:'POST', body:new FormData(form), headers:{'Accept':'application/json'}});
+    if(r.ok) { form.reset(); document.getElementById('form-success').style.display='block'; btn.style.display='none'; }
+    else { btn.textContent = 'Erreur — réessayez'; btn.disabled = false; }
+  } catch { btn.textContent = 'Erreur — réessayez'; btn.disabled = false; }
+});
+</script>
+</body>
+</html>

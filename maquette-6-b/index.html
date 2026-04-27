@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Zen DZ Solutions — Maquette 6B · Sticky Sections</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&family=Mulish:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+/* =====================================================
+   M6-B — STICKY SECTIONS / EFFET MAGAZINE
+   Chaque section s'empile sur la précédente
+   ===================================================== */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --beige:   #faf5ec;
+  --beige-2: #f2e9d8;
+  --ink:     #2c2420;
+  --green:   #4d7d26;
+  --lime:    #8abc43;
+  --taupe:   #7a6a5f;
+  --orange:  #e07520;
+  --orange-s:#fdf0e6;
+  --footer:  #1e1a17;
+  --white:   #fffdf8;
+  --gutter:  max(48px, calc((100vw - 1180px) / 2));
+  --r:       20px;
+}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:'Mulish',sans-serif;background:var(--ink);color:var(--beige);overflow-x:hidden}
+
+/* ── NAV ─────────────────────────────────────────────── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px var(--gutter);
+  transition:background .4s, padding .4s, backdrop-filter .4s;
+}
+nav.scrolled{
+  background:rgba(28,24,21,.88);
+  backdrop-filter:blur(16px);
+  padding:14px var(--gutter);
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.nav-logo{font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:1.2rem;
+  color:var(--lime);letter-spacing:.08em;text-decoration:none}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-family:'Josefin Sans',sans-serif;font-size:.8rem;letter-spacing:.12em;
+  text-transform:uppercase;color:rgba(255,255,255,.7);text-decoration:none;
+  transition:color .2s}
+.nav-links a:hover{color:#fff}
+.nav-cta{
+  background:var(--orange);color:#fff;
+  font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:.75rem;
+  letter-spacing:.1em;text-transform:uppercase;
+  padding:10px 22px;border-radius:30px;text-decoration:none;
+  transition:background .2s, transform .2s;
+}
+.nav-cta:hover{background:#c8660f;transform:translateY(-2px)}
+
+/* ── STACK ENGINE ────────────────────────────────────── */
+/* Each scene is sticky and stacks over the previous */
+.scene-wrap{
+  position:relative;
+}
+.scene{
+  position:sticky;
+  top:0;
+  height:100vh;
+  width:100%;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+}
+
+/* ── SCENE 1 — HERO ──────────────────────────────────── */
+.scene-hero{
+  background:var(--ink);
+  z-index:10;
+}
+.hero-inner{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:60px;
+  width:100%;
+  padding:0 var(--gutter);
+  padding-top:80px;
+}
+.hero-left{}
+.hero-tag{
+  font-family:'Josefin Sans',sans-serif;font-size:.72rem;letter-spacing:.25em;
+  text-transform:uppercase;color:var(--lime);margin-bottom:24px;
+  display:flex;align-items:center;gap:10px;
+}
+.hero-tag::before{content:'';width:32px;height:1px;background:var(--lime)}
+.hero-title{
+  font-family:'Josefin Sans',sans-serif;font-size:clamp(2.6rem,4.5vw,4.2rem);
+  font-weight:700;line-height:1.08;color:#fff;margin-bottom:20px;
+}
+.hero-title em{color:var(--lime);font-style:normal}
+.hero-sub{
+  font-size:1.05rem;color:rgba(255,255,255,.55);line-height:1.7;
+  max-width:440px;margin-bottom:36px;
+}
+.hero-scroll-hint{
+  display:flex;align-items:center;gap:12px;
+  font-family:'Josefin Sans',sans-serif;font-size:.75rem;letter-spacing:.15em;
+  text-transform:uppercase;color:rgba(255,255,255,.35);
+}
+.scroll-line{width:40px;height:1px;background:rgba(255,255,255,.2)}
+.hero-right{
+  display:flex;flex-direction:column;gap:14px;justify-content:center;
+}
+.vmv-card{
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+  border-radius:16px;padding:22px 26px;cursor:default;
+  transition:background .35s,border-color .35s,transform .35s;
+  position:relative;overflow:hidden;
+}
+.vmv-card::before{
+  content:'';position:absolute;inset:0;
+  background:var(--orange);opacity:0;transition:opacity .35s;
+  border-radius:16px;
+}
+.vmv-card:hover::before{opacity:1}
+.vmv-card:hover{transform:translateX(8px);border-color:var(--orange)}
+.vmv-label{
+  font-family:'Josefin Sans',sans-serif;font-size:.65rem;letter-spacing:.25em;
+  text-transform:uppercase;color:var(--orange);margin-bottom:8px;
+  position:relative;z-index:1;transition:color .35s;
+}
+.vmv-card:hover .vmv-label{color:rgba(255,255,255,.7)}
+.vmv-text{
+  font-size:.95rem;color:rgba(255,255,255,.8);line-height:1.6;
+  position:relative;z-index:1;transition:color .35s;
+}
+.vmv-card:hover .vmv-text{color:#fff}
+
+/* ── SCENE 2 — HISTOIRE ──────────────────────────────── */
+.scene-histoire{
+  background:var(--orange);
+  z-index:20;
+  border-radius:var(--r) var(--r) 0 0;
+}
+.histoire-inner{
+  width:100%;
+  padding:0 var(--gutter);
+  padding-top:80px;
+  display:grid;
+  grid-template-columns:1fr 1.2fr;
+  gap:80px;
+  align-items:center;
+}
+.hist-label{
+  font-family:'Josefin Sans',sans-serif;font-size:.72rem;letter-spacing:.25em;
+  text-transform:uppercase;color:rgba(0,0,0,.45);margin-bottom:20px;
+  display:flex;align-items:center;gap:10px;
+}
+.hist-label::before{content:'';width:32px;height:1px;background:rgba(0,0,0,.3)}
+.hist-title{
+  font-family:'Josefin Sans',sans-serif;font-size:clamp(2rem,3.5vw,3.2rem);
+  font-weight:700;line-height:1.1;color:#fff;margin-bottom:24px;
+}
+.hist-body{font-size:1.05rem;color:rgba(255,255,255,.85);line-height:1.75;margin-bottom:32px}
+.hist-stats{display:flex;gap:36px}
+.stat-item .stat-n{
+  font-family:'Josefin Sans',sans-serif;font-size:clamp(2.2rem,3vw,3rem);
+  font-weight:700;color:#fff;white-space:nowrap;
+}
+.stat-item .stat-l{font-size:.82rem;color:rgba(255,255,255,.7);margin-top:2px}
+.hist-photo{
+  border-radius:20px;overflow:hidden;height:420px;
+  box-shadow:0 40px 80px rgba(0,0,0,.25);
+  position:relative;
+}
+.hist-photo img{width:100%;height:100%;object-fit:cover}
+.hist-photo-badge{
+  position:absolute;bottom:20px;left:20px;
+  background:rgba(255,255,255,.95);border-radius:12px;
+  padding:12px 18px;
+}
+.hist-photo-badge .badge-num{
+  font-family:'Josefin Sans',sans-serif;font-size:1.6rem;font-weight:700;
+  color:var(--orange);
+}
+.hist-photo-badge .badge-txt{font-size:.78rem;color:#444;margin-top:2px}
+
+/* ── SCENE 3 — SERVICES ──────────────────────────────── */
+.scene-services{
+  background:var(--beige);
+  z-index:30;
+  border-radius:var(--r) var(--r) 0 0;
+  align-items:flex-start;
+}
+.services-inner{
+  width:100%;
+  padding:100px var(--gutter) 60px;
+}
+.section-label{
+  font-family:'Josefin Sans',sans-serif;font-size:.72rem;letter-spacing:.25em;
+  text-transform:uppercase;color:var(--orange);margin-bottom:12px;
+  display:flex;align-items:center;gap:10px;
+}
+.section-label::before{content:'';width:32px;height:1px;background:var(--orange)}
+.section-title{
+  font-family:'Josefin Sans',sans-serif;font-size:clamp(1.8rem,3vw,2.8rem);
+  font-weight:700;color:var(--ink);margin-bottom:14px;
+}
+.section-sub{font-size:1rem;color:var(--taupe);line-height:1.6;max-width:500px;margin-bottom:48px}
+.services-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+.srv-card{
+  background:#fff;border-radius:16px;
+  padding:28px 24px;
+  border:1px solid rgba(0,0,0,.06);
+  transition:transform .3s, box-shadow .3s, border-color .3s;
+  cursor:default;
+}
+.srv-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 20px 40px rgba(0,0,0,.1);
+  border-color:var(--lime);
+}
+.srv-icon{
+  width:46px;height:46px;border-radius:12px;
+  background:var(--orange-s);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;margin-bottom:16px;
+}
+.srv-card:hover .srv-icon{background:var(--orange);transition:background .3s}
+.srv-name{
+  font-family:'Josefin Sans',sans-serif;font-size:1rem;font-weight:700;
+  color:var(--ink);margin-bottom:8px;
+}
+.srv-desc{font-size:.88rem;color:var(--taupe);line-height:1.55}
+
+/* ── SCENE 4 — CONTACT ───────────────────────────────── */
+.scene-contact{
+  background:var(--beige-2);
+  z-index:40;
+  border-radius:var(--r) var(--r) 0 0;
+  align-items:flex-start;
+}
+.contact-inner{
+  width:100%;
+  padding:100px var(--gutter) 60px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:72px;
+  align-items:start;
+}
+.contact-left .contact-title{
+  font-family:'Josefin Sans',sans-serif;font-size:clamp(1.8rem,3vw,2.8rem);
+  font-weight:700;color:var(--ink);margin-bottom:16px;
+}
+.contact-body{font-size:1rem;color:var(--taupe);line-height:1.7;margin-bottom:32px}
+.contact-infos{display:flex;flex-direction:column;gap:14px}
+.c-info{display:flex;align-items:center;gap:14px}
+.c-info-icon{
+  width:40px;height:40px;border-radius:50%;
+  background:var(--orange);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:1rem;
+  flex-shrink:0;
+}
+.c-info-text{font-size:.92rem;color:var(--ink)}
+.c-info-text a{color:var(--ink);text-decoration:none}
+.c-info-text a:hover{color:var(--orange)}
+.contact-form{display:flex;flex-direction:column;gap:16px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group label{
+  font-family:'Josefin Sans',sans-serif;font-size:.72rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--taupe);
+}
+.form-group input,
+.form-group textarea,
+.form-group select{
+  background:#fff;border:1.5px solid rgba(0,0,0,.1);border-radius:10px;
+  padding:13px 16px;font-family:'Mulish',sans-serif;font-size:.95rem;color:var(--ink);
+  outline:none;transition:border-color .2s;
+}
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus{border-color:var(--orange)}
+.form-group textarea{resize:vertical;min-height:120px}
+.btn-submit{
+  background:var(--green);color:#fff;border:none;
+  font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:.85rem;
+  letter-spacing:.1em;text-transform:uppercase;
+  padding:16px 36px;border-radius:30px;cursor:pointer;
+  transition:background .2s,transform .2s;align-self:flex-start;
+}
+.btn-submit:hover{background:#3a6018;transform:translateY(-2px)}
+
+/* ── FOOTER ──────────────────────────────────────────── */
+footer{
+  background:var(--footer);
+  color:rgba(255,255,255,.5);
+  padding:48px var(--gutter);
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:.82rem;
+  position:relative;z-index:50;
+}
+.footer-brand{
+  font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:1.1rem;
+  color:var(--lime);
+}
+.footer-links{display:flex;gap:24px}
+.footer-links a{color:rgba(255,255,255,.4);text-decoration:none;
+  transition:color .2s}
+.footer-links a:hover{color:#fff}
+
+/* ── SPACERS (scroll trigger height) ────────────────── */
+/* Each wrap is taller than 100vh so the scene sticks properly */
+.scene-wrap-hero    { height: 200vh; }
+.scene-wrap-histoire{ height: 200vh; }
+.scene-wrap-services{ height: 250vh; }
+.scene-wrap-contact { height: 200vh; }
+
+/* ── MOBILE ──────────────────────────────────────────── */
+@media(max-width:900px){
+  .hero-inner,.histoire-inner,.contact-inner{grid-template-columns:1fr;gap:40px}
+  .services-grid{grid-template-columns:1fr 1fr}
+  .hist-photo{height:260px}
+  .scene-wrap-hero,.scene-wrap-histoire,.scene-wrap-services,.scene-wrap-contact{height:auto}
+  .scene{position:relative;height:auto;min-height:100vh}
+  .scene-histoire,.scene-services,.scene-contact{border-radius:var(--r)}
+}
+@media(max-width:600px){
+  .services-grid{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .nav-links{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ──────────────────────────────────────────────── -->
+<nav id="nav">
+  <a class="nav-logo" href="#">ZEN DZ</a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#histoire">Histoire</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="#contact">Prendre RDV</a>
+</nav>
+
+<!-- ── SCENE 1 · HERO ─────────────────────────────────── -->
+<div class="scene-wrap scene-wrap-hero">
+  <section class="scene scene-hero" id="accueil">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-tag">Cabinet comptable · Montreuil</div>
+        <h1 class="hero-title">
+          Votre <em>avenir</em><br/>financier,<br/>maîtrisé.
+        </h1>
+        <p class="hero-sub">
+          Zen DZ Solutions vous accompagne dans la comptabilité, la fiscalité
+          et le développement de votre entreprise — avec clarté et engagement.
+        </p>
+        <div class="hero-scroll-hint">
+          <span class="scroll-line"></span>
+          <span>Découvrir</span>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="vmv-card">
+          <div class="vmv-label">Notre Vision</div>
+          <div class="vmv-text">Rendre la gestion financière accessible à toutes les TPE et artisans, sans jargon ni barrière.</div>
+        </div>
+        <div class="vmv-card">
+          <div class="vmv-label">Notre Mission</div>
+          <div class="vmv-text">Accompagner chaque entrepreneur avec des conseils personnalisés, réactifs et concrets au quotidien.</div>
+        </div>
+        <div class="vmv-card">
+          <div class="vmv-label">Nos Valeurs</div>
+          <div class="vmv-text">Transparence, rigueur et proximité humaine — parce que la confiance se construit dans la durée.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ── SCENE 2 · HISTOIRE ─────────────────────────────── -->
+<div class="scene-wrap scene-wrap-histoire">
+  <section class="scene scene-histoire" id="histoire">
+    <div class="histoire-inner">
+      <div>
+        <div class="hist-label">Notre Histoire</div>
+        <h2 class="hist-title">Il était une fois<br/>une vision</h2>
+        <p class="hist-body">
+          Tout a commencé par un constat simple : trop d'artisans et de petits patrons
+          naviguent seuls dans la complexité comptable, souvent avec des erreurs coûteuses.
+          Zen DZ Solutions est né de l'envie de changer ça — un cabinet humain, ancré à
+          Montreuil, qui parle votre langue et connaît votre réalité.
+        </p>
+        <div class="hist-stats">
+          <div class="stat-item">
+            <div class="stat-n" data-count="200">0</div>
+            <div class="stat-l">Clients accompagnés</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-n" data-suffix=" ans" data-count="7">0</div>
+            <div class="stat-l">D'expérience</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-n" data-suffix="%" data-count="98">0</div>
+            <div class="stat-l">Satisfaction client</div>
+          </div>
+        </div>
+      </div>
+      <div class="hist-photo">
+        <img src="https://images.unsplash.com/photo-1556761175-4b46a572b786?w=900&q=80" alt="Équipe Zen DZ Solutions"/>
+        <div class="hist-photo-badge">
+          <div class="badge-num">7 ans</div>
+          <div class="badge-txt">à vos côtés</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ── SCENE 3 · SERVICES ─────────────────────────────── -->
+<div class="scene-wrap scene-wrap-services">
+  <section class="scene scene-services" id="services">
+    <div class="services-inner">
+      <div class="section-label">Ce que nous faisons</div>
+      <h2 class="section-title">Nos services</h2>
+      <p class="section-sub">Une offre complète pour accompagner votre activité à chaque étape de sa vie.</p>
+      <div class="services-grid">
+        <div class="srv-card">
+          <div class="srv-icon">📊</div>
+          <div class="srv-name">Comptabilité & Bilan</div>
+          <div class="srv-desc">Tenue de comptes, liasse fiscale, bilan annuel et déclarations en temps voulu.</div>
+        </div>
+        <div class="srv-card">
+          <div class="srv-icon">🧾</div>
+          <div class="srv-name">Fiscalité</div>
+          <div class="srv-desc">Optimisation fiscale, TVA, IS, IR — conseil stratégique pour réduire votre charge.</div>
+        </div>
+        <div class="srv-card">
+          <div class="srv-icon">💼</div>
+          <div class="srv-name">Paie & Social</div>
+          <div class="srv-desc">Gestion de la paie, contrats, charges sociales et relations avec l'URSSAF.</div>
+        </div>
+        <div class="srv-card">
+          <div class="srv-icon">🏗️</div>
+          <div class="srv-name">Création d'entreprise</div>
+          <div class="srv-desc">Statut juridique, domiciliation, immatriculation et premier bilan prévisionnel.</div>
+        </div>
+        <div class="srv-card">
+          <div class="srv-icon">📈</div>
+          <div class="srv-name">Gestion prévisionnelle</div>
+          <div class="srv-desc">Budget, trésorerie prévisionnelle, tableaux de bord et pilotage de performance.</div>
+        </div>
+        <div class="srv-card">
+          <div class="srv-icon">🤝</div>
+          <div class="srv-name">Conseil & Accompagnement</div>
+          <div class="srv-desc">Stratégie de développement, cession, transmission — à chaque tournant de votre vie.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ── SCENE 4 · CONTACT ──────────────────────────────── -->
+<div class="scene-wrap scene-wrap-contact">
+  <section class="scene scene-contact" id="contact">
+    <div class="contact-inner">
+      <div class="contact-left">
+        <div class="section-label">Contactez-nous</div>
+        <h2 class="contact-title">Parlons de<br/>votre projet</h2>
+        <p class="contact-body">Un premier rendez-vous gratuit pour comprendre votre situation et vous proposer la solution la plus adaptée.</p>
+        <div class="contact-infos">
+          <div class="c-info">
+            <div class="c-info-icon">📍</div>
+            <div class="c-info-text">Montreuil, 93100 — Île-de-France</div>
+          </div>
+          <div class="c-info">
+            <div class="c-info-icon">📞</div>
+            <div class="c-info-text"><a href="tel:0980751599">09 80 75 15 99</a></div>
+          </div>
+          <div class="c-info">
+            <div class="c-info-icon">✉️</div>
+            <div class="c-info-text"><a href="mailto:contact@zendzsolutions.fr">contact@zendzsolutions.fr</a></div>
+          </div>
+        </div>
+      </div>
+      <form class="contact-form" id="form" action="https://formspree.io/contact@zendzsolutions.fr" method="POST">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="prenom">Prénom</label>
+            <input type="text" id="prenom" name="prenom" placeholder="Votre prénom"/>
+          </div>
+          <div class="form-group">
+            <label for="nom">Nom</label>
+            <input type="text" id="nom" name="nom" placeholder="Votre nom"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="votre@email.fr"/>
+        </div>
+        <div class="form-group">
+          <label for="tel">Téléphone</label>
+          <input type="tel" id="tel" name="tel" placeholder="06 00 00 00 00"/>
+        </div>
+        <div class="form-group">
+          <label for="sujet">Sujet</label>
+          <select id="sujet" name="sujet">
+            <option value="">Choisir un sujet…</option>
+            <option>Comptabilité & Bilan</option>
+            <option>Fiscalité</option>
+            <option>Paie & Social</option>
+            <option>Création d'entreprise</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Décrivez votre situation…"></textarea>
+        </div>
+        <button type="submit" class="btn-submit">Envoyer ma demande</button>
+      </form>
+    </div>
+  </section>
+</div>
+
+<!-- ── FOOTER ─────────────────────────────────────────── -->
+<footer>
+  <div>
+    <div class="footer-brand">ZEN DZ SOLUTIONS</div>
+    <div style="margin-top:6px">Expert-Comptable · Montreuil 93 · SIRET 000 000 000 00000</div>
+  </div>
+  <div class="footer-links">
+    <a href="#">Mentions légales</a>
+    <a href="#">Confidentialité</a>
+    <a href="#">Plan du site</a>
+  </div>
+  <div>© 2025 Zen DZ Solutions</div>
+</footer>
+
+<script>
+/* ── NAV scrolled class ── */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+},{passive:true});
+
+/* ── Animated counters ── */
+function animateCounter(el){
+  const target = +el.dataset.count;
+  const suffix = el.dataset.suffix || (target >= 100 ? '+' : '');
+  const dur = 1400;
+  const start = performance.now();
+  function frame(now){
+    const t = Math.min((now - start) / dur, 1);
+    const ease = 1 - Math.pow(1 - t, 3);
+    el.textContent = Math.round(ease * target) + suffix;
+    if(t < 1) requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+
+const counterEls = document.querySelectorAll('[data-count]');
+const counterObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      animateCounter(e.target);
+      counterObs.unobserve(e.target);
+    }
+  });
+},{threshold:.4});
+counterEls.forEach(el=>counterObs.observe(el));
+
+/* ── Scroll-driven card peek ── */
+/* As the user scrolls into each scene-wrap,
+   we compute progress and can drive subtle effects */
+function onScroll(){
+  document.querySelectorAll('.scene-wrap').forEach(wrap=>{
+    const rect = wrap.getBoundingClientRect();
+    const total = wrap.offsetHeight - window.innerHeight;
+    if(total <= 0) return;
+    const progress = Math.max(0, Math.min(1, -rect.top / total));
+    wrap.style.setProperty('--progress', progress);
+  });
+}
+window.addEventListener('scroll', onScroll, {passive:true});
+onScroll();
+</script>
+</body>
+</html>
